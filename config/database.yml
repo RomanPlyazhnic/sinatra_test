@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: sinatra_test_db
+  pool: 5
+  username: sinatra_test_user
+  password: qwe123
