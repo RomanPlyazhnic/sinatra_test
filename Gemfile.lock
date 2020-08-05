@@ -24,13 +24,20 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    coderay (1.1.3)
     concurrent-ruby (1.1.6)
+    faker (2.13.0)
+      i18n (>= 1.6, < 2)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    method_source (1.0.0)
     minitest (5.14.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     pg (1.2.3)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     rack (2.2.3)
     rake (13.0.1)
     ruby2_keywords (0.0.2)
@@ -48,7 +55,9 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  faker
   pg
+  pry
   rake
   sinatra!
   sinatra-activerecord
