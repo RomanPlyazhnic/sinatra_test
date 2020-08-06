@@ -1,6 +1,7 @@
 require 'faker'
 require './models/user'
 require './models/post'
+require 'pry'
 
 module ReviewGenerator
   MINIMAL_MARK = 1
@@ -14,14 +15,12 @@ module ReviewGenerator
     def generate(review_count = 1)
       review_count.times do 
         mark = Faker::Number.between(from: MINIMAL_MARK, to: MAXIMAL_MARK)
-
-        #transaction do
-        #  random_post = Post.random_record            
-        #  create(mark: mark, post: random_post)
-        #end
-
-        generate_query = "INSERT INTO reviews(mark, post_id) SELECT #{mark}, id FROM posts ORDER BY random() LIMIT 1"
-        connection.execute(generate_query)
+        #random_post_query = "SELECT * FROM posts ORDER BY random() LIMIT 1 FOR UPDATE"
+        
+        transaction do
+          random_post = Post.lock.limit(1).order("RANDOM()").first
+          add(mark: mark, post: random_post) if random_post
+        end        
       end      
     end
   end  

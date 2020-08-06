@@ -4,6 +4,8 @@ require './lib/classes/ip_storage'
 require 'pry'
 
 module PostGenerator
+  post_generate_query = "INSERT INTO posts(title, content, user_ip, user_id) SELECT %s, %s, %s, id FROM users ORDER BY random() LIMIT 1"
+
   def self.included(base)
     base.extend(PostGeneratorClassMethods)
   end
@@ -15,13 +17,7 @@ module PostGenerator
         content = Faker::JapaneseMedia::OnePiece.quote.gsub("'", "''")
         user_ip = IpStorage.ip_array.sample
         
-        #transaction do          
-        #  user = User.random_record
-        #  create(title: title, content: content, user: user, user_ip: user_ip)
-        #end
-        
-        generate_query = "INSERT INTO posts(title, content, user_ip, user_id) SELECT \'#{title}\', \'#{content}\', \'#{user_ip}\', id FROM users ORDER BY random() LIMIT 1"
-        connection.execute(generate_query)
+        connection.execute(post_generate_query % [title, content, user_ip])
       end      
     end
   end  

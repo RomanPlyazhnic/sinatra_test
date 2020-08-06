@@ -28,6 +28,10 @@ GEM
     concurrent-ruby (1.1.6)
     faker (2.13.0)
       i18n (>= 1.6, < 2)
+    hairtrigger (0.2.23)
+      activerecord (>= 5.0, < 7)
+      ruby2ruby (~> 2.4)
+      ruby_parser (~> 3.10)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
@@ -41,6 +45,12 @@ GEM
     rack (2.2.3)
     rake (13.0.1)
     ruby2_keywords (0.0.2)
+    ruby2ruby (2.4.4)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.6)
+    ruby_parser (3.14.2)
+      sexp_processor (~> 4.9)
+    sexp_processor (4.15.0)
     sinatra-activerecord (2.0.18)
       activerecord (>= 4.1)
       sinatra (>= 1.0)
@@ -56,6 +66,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   faker
+  hairtrigger
   pg
   pry
   rake
