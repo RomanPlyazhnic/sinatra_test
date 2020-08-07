@@ -1,12 +1,15 @@
-require './models/application_record'
+#require './models/application_record'
 require './lib/modules/post_generator'
+require 'sinatra/activerecord'
+require './models/validators/post_validator'
 require 'pry'
 
-class Post < ActiveRecord::Base#ApplicationRecord
+class Post < ActiveRecord::Base
   include PostGenerator
 
   has_many :reviews, dependent: :destroy
   belongs_to :user
+  validates_with PostValidator 
 
   def calculate_avg_rating
     reviews_for_post_query = "SELECT * FROM reviews WHERE post_id = #{id} FOR UPDATE"

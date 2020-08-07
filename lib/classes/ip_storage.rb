@@ -1,6 +1,6 @@
 require 'faker'
 
-class IpStorage
+class BaseIpStorage
   IP_COUNT = 50
 
   def self.ip_array
