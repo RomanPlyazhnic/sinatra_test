@@ -6,6 +6,7 @@ class PostValidator < Validator
     check_title(post)
     check_content(post)
     check_user_ip(post)
+    check_user(post)
   end
 
   private
@@ -26,4 +27,10 @@ class PostValidator < Validator
     user_ip = post.user_ip.to_s
     post.errors.add(:user_ip, VALIDATE_MESSAGES[:incorrect_format]) unless IPAddress.valid?(user_ip)
   end  
+
+  def check_user(post)
+    user_id = post.user_id
+    post.errors.add(:user, VALIDATE_MESSAGES[:empty]) if user_id.nil?
+    post.errors.add(:user, VALIDATE_MESSAGES[:incorrect_format]) if !(user_id.kind_of?(Integer))
+  end
 end
