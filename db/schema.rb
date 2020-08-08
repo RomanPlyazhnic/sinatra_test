@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_04_102235) do
+ActiveRecord::Schema.define(version: 2020_08_08_152427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 2020_08_04_102235) do
     t.index ["mark"], name: "by_mark"
   end
 
+  create_table "userips", force: :cascade do |t|
+    t.string "user_login"
+    t.cidr "user_ip"
+    t.integer "user_id"
+    t.index ["user_id", "user_ip"], name: "by_user_id_user_ip"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "login"
     t.index ["login"], name: "by_login", unique: true
@@ -38,4 +45,5 @@ ActiveRecord::Schema.define(version: 2020_08_04_102235) do
 
   add_foreign_key "posts", "users", name: "fk_posts_users", on_delete: :cascade
   add_foreign_key "reviews", "posts", name: "fk_reviews_posts", on_delete: :cascade
+  add_foreign_key "userips", "users", name: "fk_user_ips_users", on_delete: :cascade
 end
