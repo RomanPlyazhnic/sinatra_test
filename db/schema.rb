@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_152427) do
     t.string "user_login"
     t.cidr "user_ip"
     t.integer "user_id"
-    t.index ["user_id", "user_ip"], name: "by_user_id_user_ip"
+    t.index ["user_ip", "user_id"], name: "by_user_ip_user_id"
   end
 
   create_table "users", force: :cascade do |t|

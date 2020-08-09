@@ -3,6 +3,14 @@ require './models/post'
 require './models/review'
 require 'pry'
 
-User.generate(100)
-Post.generate(200000)
-Review.generate(1000)
+USER_COUNT = 100
+POST_COUNT = 200000
+REVIEW_COUNT = 1000
+
+begin
+  User.generate(USER_COUNT)
+  Post.generate(POST_COUNT)
+  Review.generate(REVIEW_COUNT)
+rescue => exception
+  
+end

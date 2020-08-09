@@ -2,8 +2,6 @@ require './models/post'
 require './models/user'
 
 class PostCreator
-  attr_accessor :errors, :post_attributes
-
   def initialize(title:, content:, user_login:, user_ip:)
     @title, @content, @user_login, @user_ip = title, content, user_login, user_ip
 

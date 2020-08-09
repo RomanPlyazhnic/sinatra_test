@@ -15,7 +15,6 @@ module ReviewGenerator
     def generate(review_count = 1)
       review_count.times do 
         mark = Faker::Number.between(from: MINIMAL_MARK, to: MAXIMAL_MARK)
-        #random_post_query = "SELECT * FROM posts ORDER BY random() LIMIT 1 FOR UPDATE"
         
         transaction do
           random_post = Post.lock.limit(1).order("RANDOM()").first

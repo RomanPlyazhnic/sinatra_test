@@ -7,6 +7,8 @@ class BaseIpStorage
     @storaged_ip_adresses ||= create_ip_addreses
   end
 
+  private
+
   def self.create_ip_addreses
     ip_addresses = []
 

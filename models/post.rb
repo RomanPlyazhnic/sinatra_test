@@ -1,4 +1,3 @@
-#require './models/application_record'
 require './lib/modules/post_generator'
 require 'sinatra/activerecord'
 require './models/validators/post_validator'
