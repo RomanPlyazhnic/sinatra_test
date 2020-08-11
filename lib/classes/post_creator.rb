@@ -9,7 +9,7 @@ class PostCreator
   end
 
   def errors  
-    @post.errors.messages.merge(@user.errors.messages) if (@post && @user)
+    @post.errors.messages if @post
   end
 
   def result

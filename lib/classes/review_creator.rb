@@ -22,7 +22,7 @@ class ReviewCreator
     Post.transaction do
       @post = search_post
       @review = Review.add(mark: @post_mark, post: @post) if @post
-    end      
+    end 
   end
 
   def search_post

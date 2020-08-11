@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_08_152427) do
+ActiveRecord::Schema.define(version: 2020_08_10_165317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_152427) do
     t.cidr "user_ip"
     t.integer "user_id"
     t.index ["avg_rating"], name: "by_avg_rating"
-    t.index ["user_ip"], name: "by_ip_address", opclass: :inet_ops, using: :gist
+    t.index ["user_ip", "user_id"], name: "by_user_ip_user_id_posts"
   end
 
   create_table "reviews", force: :cascade do |t|

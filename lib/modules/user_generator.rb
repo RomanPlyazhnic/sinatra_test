@@ -1,3 +1,4 @@
+require './lib/classes/unique_db_value'
 require 'faker'
 
 module UserGenerator
@@ -8,12 +9,8 @@ module UserGenerator
   module UserGeneratorClassMethods
     def generate(user_count = 1)
       user_count.times do
-        begin
-          user_name = Faker::JapaneseMedia::OnePiece.character
-          create(login: user_name)   
-        rescue ActiveRecord::RecordNotUnique
-          retry
-        end
+        user_name = UniqueDbValue.new.generate(model: User, field: "login") { Faker::JapaneseMedia::OnePiece.character }
+        user_name.nil? ? break : create(login: user_name)
       end       
     end
   end  

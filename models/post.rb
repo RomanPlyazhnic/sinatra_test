@@ -24,7 +24,7 @@ class Post < ActiveRecord::Base
 
     transaction do          
       review_ids = self.class.connection.execute(reviews_for_post_query).map { |review| review["id"] }
-      avg_rating = self.class.connection.execute(calculate_avg_rating_query % review_ids.join(', ')).first["avg"]
+      avg_rating = self.class.connection.execute(calculate_avg_rating_query % review_ids.join(', ')).first["avg"] if !(review_ids.empty?)
       update(avg_rating: avg_rating)      
     end
   end
@@ -33,10 +33,11 @@ class Post < ActiveRecord::Base
 
   def self.create_user_ip_field(post)
     transaction do
-      post.lock!
-      post.user.lock!
+      different_ip_user_post_query = "SELECT user_ip, user_id FROM posts WHERE user_ip = '#{post[:user_ip]}' GROUP BY user_ip, user_id"
+      different_ip_user_post = connection.execute(different_ip_user_post_query)
+      same_userips = Userip.lock.where(user: post.user, user_ip: post["user_ip"]).to_a
 
-      if Userip.lock.where(user: post.user, user_ip: post["user_ip"]).to_a.count == 0
+      if same_userips.count == 0 && different_ip_user_post.count > 1
         Userip.create(user: post.user, user_login: post.user["login"], user_ip: post["user_ip"])
       end
     end

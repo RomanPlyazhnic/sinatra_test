@@ -8,3 +8,8 @@ gem 'faker'
 gem 'pry'
 gem 'netaddr'
 gem 'ipaddress'
+
+group :test do
+  gem 'rack-test'
+  gem 'rspec'
+end

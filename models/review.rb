@@ -7,7 +7,6 @@ class Review < ActiveRecord::Base
   include ReviewGenerator  
   belongs_to :post
   validates_with ReviewValidator
-  #after_create :calculate_avg_rating
 
   def self.add(**fields)    
     review = create(fields)
