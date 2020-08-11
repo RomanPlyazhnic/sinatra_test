@@ -14,13 +14,23 @@ module ReviewGenerator
   module ReviewGeneratorClassMethods
     def generate(review_count = 1)
       review_count.times do 
-        mark = Faker::Number.between(from: MINIMAL_MARK, to: MAXIMAL_MARK)
+        mark = random_mark
         
         transaction do
-          random_post = Post.lock.limit(1).order("RANDOM()").first
-          add(mark: mark, post: random_post) if random_post
+          post = random_post
+          external_create(mark: mark, post: post) if post
         end        
       end      
+    end
+
+    private 
+
+    def random_mark
+      Faker::Number.between(from: MINIMAL_MARK, to: MAXIMAL_MARK)
+    end
+
+    def random_post
+      Post.lock.limit(1).order("RANDOM()").first
     end
   end  
 end

@@ -4,8 +4,8 @@ require './models/review'
 require 'pry'
 
 USER_COUNT = 100
-POST_COUNT = 200000
-REVIEW_COUNT = 3000
+POST_COUNT = 1000
+REVIEW_COUNT = 200
 
 #begin
   User.generate(USER_COUNT)

@@ -16,7 +16,7 @@ class BaseIpStorage
       new_ip = nil
 
       loop do
-        new_ip = Faker::Internet.ip_v4_address
+        new_ip = random_ip
         is_duplicate = ip_addresses.include?(new_ip)
         break if !is_duplicate
       end
@@ -25,5 +25,11 @@ class BaseIpStorage
     end
     
     ip_addresses
+  end
+
+  private 
+
+  def self.random_ip
+    Faker::Internet.ip_v4_address
   end
 end

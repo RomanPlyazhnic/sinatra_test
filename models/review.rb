@@ -8,7 +8,7 @@ class Review < ActiveRecord::Base
   belongs_to :post
   validates_with ReviewValidator
 
-  def self.add(**fields)    
+  def self.external_create(**fields)    
     review = create(fields)
     
     review.save
