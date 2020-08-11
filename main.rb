@@ -12,10 +12,9 @@ class SinatraApp < Sinatra::Base
       post_title, post_content, post_user_login, post_user_ip = parametres["title"], parametres["content"], parametres["login"], parametres["ip"]
       post = PostCreator.new.create(title: post_title, content: post_content, user_login: post_user_login, user_ip: post_user_ip)
     rescue => exception
-      status 422 
-      body exception.message
+      ResponseHandler.handle_exception(exception: exception, code: 422)
     else
-      ResponseHandler.new(post, self).response
+      ResponseHandler.new(result_entity: post, controller: self, positive_code: 200, negative_code: 422).response
     end
   end
 
@@ -25,10 +24,9 @@ class SinatraApp < Sinatra::Base
       post_id, post_mark = parametres["id"], parametres["mark"]
       review = ReviewCreator.new.create(post_id: post_id, post_mark: post_mark)
     rescue => exception
-      status 422
-      body exception.message
+      ResponseHandler.handle_exception(exception: exception, code: 422)
     else
-      ResponseHandler.new(review, self).response
+      ResponseHandler.new(result_entity: review, controller: self, positive_code: 200, negative_code: 422).response
     end
   end
 
@@ -38,10 +36,9 @@ class SinatraApp < Sinatra::Base
       top_amount = (paramatres["number"] || []).first
       top_posts = TopPosts.new(top_amount)
     rescue => exception
-      status 422
-      body exception.message
+      ResponseHandler.handle_exception(exception: exception, code: 422)
     else
-      ResponseHandler.new(top_posts, self).response
+      ResponseHandler.new(result_entity: top_posts, controller: self, positive_code: 200, negative_code: 422).response
     end
   end
 
@@ -49,10 +46,9 @@ class SinatraApp < Sinatra::Base
     begin
       ips_users = IpsAndUsers.new
     rescue => exception
-      status 422
-      body exception.message
+      ResponseHandler.handle_exception(exception: exception, code: 422)
     else
-      ResponseHandler.new(ips_users, self).response
+      ResponseHandler.new(result_entity: ips_users, controller: self, positive_code: 200, negative_code: 422).response
     end
   end
 end
